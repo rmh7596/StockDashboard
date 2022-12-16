@@ -2,7 +2,10 @@
 #include <fstream>
 #include <stdlib.h>
 #include "curl/curl.h"
+<<<<<<< Updated upstream
+=======
 #include "Stock.h"
+>>>>>>> Stashed changes
 
 using namespace std;
 
@@ -15,6 +18,20 @@ int main() {
     curl_easy_setopt(curl, CURLOPT_URL, "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=TSLA&region=US");
 
     struct curl_slist* headers = NULL;
+<<<<<<< Updated upstream
+    string response_string;
+    headers = curl_slist_append(headers, "X-RapidAPI-Key: 90cfc6970fmsh4f148a374b34566p115f3ejsnf121b03c19d2");
+    headers = curl_slist_append(headers, "X-RapidAPI-Host: apidojo-yahoo-finance-v1.p.rapidapi.com");
+
+    struct MemoryStruct chunk;
+    chunk.memory = (char*)malloc(1);  /* will be grown as needed by the realloc above */
+    chunk.size = 0;    /* no data at this point */
+
+    //FILE * myfile;
+    //fopen_s(&myfile, "C:\\Users\\ryanh\\source\\repos\\StockDashboard\\stonk.txt", "w");
+    //myfile << "Hello\n";
+=======
+>>>>>>> Stashed changes
     
     char* buf = nullptr;
     size_t size = 1;
@@ -25,6 +42,20 @@ int main() {
     string finalKey = keyPrefix + key;
     free(buf);
 
+<<<<<<< Updated upstream
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemory);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void*)&chunk);
+    //curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void*)&myfile);
+
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response_string);
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+    CURLcode ret = curl_easy_perform(curl);
+    //printf("%lu bytes retrieved\n", (unsigned long)chunk.size);
+    //cout << chunk.memory << endl;
+    //fclose(myfile);
+
+=======
     headers = curl_slist_append(headers, finalKey.c_str());
     headers = curl_slist_append(headers, "X-RapidAPI-Host: apidojo-yahoo-finance-v1.p.rapidapi.com");
 
@@ -50,5 +81,6 @@ int main() {
     cout << n.getPostMarket() << endl;
     cout << n.getMarketCap() << endl;
 
+>>>>>>> Stashed changes
 	return 0;
 }

@@ -18,6 +18,8 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
+=======
     <ClCompile Include="deserialize.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -35,5 +37,6 @@
     <ClInclude Include="Stock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+>>>>>>> Stashed changes
   </ItemGroup>
 </Project>

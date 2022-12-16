@@ -139,10 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="deserialize.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Stock.cpp" />
   </ItemGroup>
+<<<<<<< Updated upstream
+=======
   <ItemGroup>
     <None Include="test.json" />
   </ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="deserialize.h" />
     <ClInclude Include="Stock.h" />
   </ItemGroup>
+>>>>>>> Stashed changes
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
