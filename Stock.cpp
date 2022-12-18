@@ -33,8 +33,10 @@ void Stock::Deserialize(const std::string& filePath)
 	rapidjson::Value& quoteType = document["quoteType"];
 
 	_ticker = quoteType["symbol"].GetString();
-	_preMarket = preMarket["raw"].GetFloat();
-
+	if (preMarket.HasMember("raw")) { // Will throw assertion error if the market is not open
+		_preMarket = preMarket["raw"].GetFloat();
+	}
+	
 
 	if (postMarket.HasMember("raw")) { // Will throw assertion error if the market is not closed
 		_postMarket = postMarket["raw"].GetFloat();

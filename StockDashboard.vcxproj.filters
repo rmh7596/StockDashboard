@@ -18,10 +18,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="deserialize.cpp">
+    <ClCompile Include="Stock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stock.cpp">
+    <ClCompile Include="APIRequest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,10 +29,10 @@
     <None Include="test.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="deserialize.h">
+    <ClInclude Include="Stock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Stock.h">
+    <ClInclude Include="APIRequest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
