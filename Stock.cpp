@@ -42,14 +42,29 @@ void Stock::Deserialize(const std::string& filePath)
 		_postMarket = postMarket["raw"].GetFloat();
 	}
 	
-	_marketCap = marketCap["raw"].GetFloat();
+	if (marketCap.HasMember("raw")) {
+		_marketCap = marketCap["raw"].GetFloat(); // Does not work for mutual funds
+	}
 	_regularMarketPrice = regularMarketPrice["raw"].GetFloat();
+	_quoteType = price["quoteSourceName"].GetString();
+
+	static const char* kTypeNames[] =
+	{ "Null", "False", "True", "Object", "Array", "String", "Number" };
+
+	for (rapidjson::Value::ConstMemberIterator itr = price.MemberBegin(); itr != price.MemberEnd(); ++itr)
+	{
+		printf("Type of member %s is %s\n",itr->name.GetString(), kTypeNames[itr->value.GetType()]);
+	}
 
 	fclose(myfile);
 }
 
 std::string Stock::getTicker() {
 	return Stock::_ticker;
+}
+
+std::string Stock::getQuoteType() {
+	return Stock::_quoteType;
 }
 
 float Stock::getRegularMarketPrice() {
