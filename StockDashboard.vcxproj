@@ -157,6 +157,7 @@
     <ClCompile Include="Dependencies\ImGUI\imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Stock.cpp" />
+    <ClCompile Include="StockUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test.json" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Dependencies\ImGUI\imgui\imgui.h" />
     <ClInclude Include="Dependencies\ImGUI\imgui\imgui_internal.h" />
     <ClInclude Include="Stock.h" />
+    <ClInclude Include="StockUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
