@@ -1,15 +1,15 @@
 #include "Stock.h"
 
 Stock::Stock() {
-	_ticker = " ";
+	_ticker = "";
 	_preMarket = 0;
 	_postMarket = 0;
-	_marketCap = 0;
+	_marketCap = "";
 }
 
 Stock::~Stock() {}
 
-void Stock::Deserialize(const std::string& filePath)
+void Stock::Deserialize(Stock *s, const std::string& filePath)
 {
 	FILE* myfile;
 
@@ -17,7 +17,7 @@ void Stock::Deserialize(const std::string& filePath)
 
 	rapidjson::Document document;
 
-	char readBuffer[65536];
+	char readBuffer[16384];
 	rapidjson::FileReadStream is(myfile, readBuffer, sizeof(readBuffer));
 
 	document.ParseStream(is);
@@ -27,36 +27,58 @@ void Stock::Deserialize(const std::string& filePath)
 	rapidjson::Value& preMarket = price["preMarketPrice"];
 	rapidjson::Value& postMarket = price["postMarketPrice"];
 	rapidjson::Value& regularMarketPrice = price["regularMarketPrice"];
-
 	rapidjson::Value& marketCap = price["marketCap"];
-	
 	rapidjson::Value& quoteType = document["quoteType"];
 
-	_ticker = quoteType["symbol"].GetString();
+	s->setTicker(quoteType["symbol"].GetString());
 	if (preMarket.HasMember("raw")) { // Will throw assertion error if the market is not open
-		_preMarket = preMarket["raw"].GetFloat();
+		s->setPreMarket(preMarket["raw"].GetFloat());
 	}
 	
 
 	if (postMarket.HasMember("raw")) { // Will throw assertion error if the market is not closed
-		_postMarket = postMarket["raw"].GetFloat();
+		s->setPostMarket(postMarket["raw"].GetFloat());
 	}
 	
-	if (marketCap.HasMember("raw")) {
-		_marketCap = marketCap["raw"].GetFloat(); // Does not work for mutual funds
+	if (marketCap.HasMember("fmt")) {
+		s->setMarketCap(marketCap["fmt"].GetString()); // Does not work for mutual funds
 	}
-	_regularMarketPrice = regularMarketPrice["raw"].GetFloat();
-	_quoteType = price["quoteSourceName"].GetString();
-
-	static const char* kTypeNames[] =
-	{ "Null", "False", "True", "Object", "Array", "String", "Number" };
-
-	for (rapidjson::Value::ConstMemberIterator itr = price.MemberBegin(); itr != price.MemberEnd(); ++itr)
-	{
-		printf("Type of member %s is %s\n",itr->name.GetString(), kTypeNames[itr->value.GetType()]);
-	}
+	s->setRegularMarketPrice(regularMarketPrice["raw"].GetFloat());
+	s->setQuoteType(price["quoteSourceName"].GetString());
 
 	fclose(myfile);
+}
+
+void Stock::getStockData (char* symbolBuf) {
+	FILE* myfile;
+	fopen_s(&myfile, requestDataPath.c_str(), "w");
+	APIRequest ar = APIRequest();
+	CURL* curl = ar.initializeAPIRequest();
+	ar.setRequestOptions(curl, myfile, "get-summary", symbolBuf, "US");
+	ar.setRequestHeaders(curl);
+	CURLcode result = ar.performRequest(curl);
+	fclose(myfile);
+	Deserialize(this, requestDataPath);
+}
+
+void Stock::setTicker(std::string ticker) {
+	this->_ticker = ticker;
+}
+
+void Stock::setQuoteType(std::string quoteType) {
+	this->_quoteType = quoteType;
+}
+void Stock::setRegularMarketPrice(float regularMarketPrice) {
+	this->_regularMarketPrice = regularMarketPrice;
+}
+void Stock::setPreMarket(float preMarket) {
+	this->_preMarket = preMarket;
+}
+void Stock::setPostMarket(float postMarket) {
+	this->_postMarket = postMarket;
+}
+void Stock::setMarketCap(std::string marketCap) {
+	this->_marketCap = marketCap;
 }
 
 std::string Stock::getTicker() {
@@ -79,6 +101,6 @@ float Stock::getPostMarket() {
 	return Stock::_postMarket;
 }
 
-double Stock::getMarketCap() {
+std::string Stock::getMarketCap() {
 	return Stock::_marketCap;
 }

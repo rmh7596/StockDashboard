@@ -17,8 +17,6 @@
 
 using namespace std;
 
-const string requestDataPath = "C:\\Users\\ryanh\\source\\repos\\StockDashboard\\stonk.json";
-
 // Data
 static ID3D11Device* g_pd3dDevice = NULL;
 static ID3D11DeviceContext* g_pd3dDeviceContext = NULL;
