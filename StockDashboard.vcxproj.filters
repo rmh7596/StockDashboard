@@ -12,6 +12,9 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{4e4a23f3-8624-4e80-909f-d2187bebb268}</UniqueIdentifier>
     </Filter>
+    <Filter Include="implot">
+      <UniqueIdentifier>{d11671cf-a16a-4433-b353-a91888dadba0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -47,9 +50,15 @@
     <ClCompile Include="StockUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="test.json" />
+    <ClCompile Include="Dependencies\implot\implot.cpp">
+      <Filter>implot</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\implot\implot_demo.cpp">
+      <Filter>implot</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\implot\implot_items.cpp">
+      <Filter>implot</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stock.h">
@@ -75,6 +84,12 @@
     </ClInclude>
     <ClInclude Include="StockUI.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\implot\implot.h">
+      <Filter>implot</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\implot\implot_internal.h">
+      <Filter>implot</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,4 +6,5 @@ namespace StockUI {
 
 	void RenderUI();
 	void RenderStockInput();
+	void RenderChart();
 }

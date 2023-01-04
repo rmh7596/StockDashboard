@@ -7,13 +7,27 @@ CURL* APIRequest::initializeAPIRequest() {
 	return curl;
 }
 
-void APIRequest::setRequestOptions(CURL* curl, FILE * fp, string requestType, string symbol, string region) {
+void APIRequest::setRequestOptionsStock(CURL* curl, FILE * fp, string requestType, string symbol, string region) {
 	_symbol = symbol;
 	_region = region;
 	_requestType = requestType;
 
 	curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
 	string finalURL = _prefix + _requestType + "?" + "symbol=" + _symbol + "&region=" + _region;
+	curl_easy_setopt(curl, CURLOPT_URL, finalURL.c_str());
+
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+}
+
+void APIRequest::setRequestOptionsChart(CURL* curl, FILE* fp, string requestType, string symbol, string region, string interval, string range) {
+	_symbol = symbol;
+	_region = region;
+	_requestType = requestType;
+	_interval = interval;
+	_range = range;
+
+	curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
+	string finalURL = _prefix + _requestType + "?" + "interval=" + _interval + "&symbol=" + _symbol + "&range=" + _range + "&region=" + _region;
 	curl_easy_setopt(curl, CURLOPT_URL, finalURL.c_str());
 
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);

@@ -13,7 +13,7 @@
 #include <tchar.h>
 
 #include "StockUI.h"
-
+#include "implot.h"
 
 using namespace std;
 
@@ -51,6 +51,7 @@ int main() {
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+    ImPlot::CreateContext(); // For external plotting
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;             // Enable Docking
@@ -123,6 +124,7 @@ int main() {
     // Cleanup
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();
+    ImPlot::DestroyContext();
     ImGui::DestroyContext();
 
     CleanupDeviceD3D();
